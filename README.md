@@ -1,5 +1,704 @@
 # nVidiaGguOpenCLsdk
 
+
+＃nVidiaGguOpenCLsdk
+
+-------------------------------------------------- ------------------------------
+-------------------------------------------------- ------------------------------
+NVIDIA GPUコンピューティングソフトウェア開発キット
+OpenCL SDK 4.2リリースノート
+R295およびR300リリースドライバ
+
+  Windows XP、Windows Vista、およびWindows 7（32/64-bit）
+  Windows Server 2003、2003 R2、2008、2008 R2
+  Linux OS（32/64-bit）
+  Mac OSX（10.6.x SnowLeopard 32/64-bit、10.7.x Lion 32/64-bit）
+
+-------------------------------------------------- ------------------------------
+-------------------------------------------------- ------------------------------
+
+-------------------------------------------------- ------------------------------
+目次
+-------------------------------------------------- ------------------------------
+私は法的通知
+II A Windowsのインストール手順
+II B Linuxのインストール手順
+III A SDKインフラストラクチャを使用してWindows用に独自のOpenCLプログラムを作成する
+III B SDKインフラストラクチャを使用したLinux用の独自のOpenCLプログラムの作成
+IV A SDKインフラストラクチャの外でWindows用に独自のOpenCLプログラムを作成する
+IV B SDKインフラストラクチャの外部でLinux用に独自のOpenCLプログラムを作成する
+V. Mac OSXの既知の問題
+V. B Linuxでの既知の問題
+VI。よくある質問
+VII。ログの変更
+VIII。 OSプラットフォームとコンパイラのサポート
+-------------------------------------------------- ------------------------------
+
+-------------------------------------------------- ------------------------------
+I.法的通知
+-------------------------------------------------- ------------------------------
+注意：このリリースは、
+このリリースで配布されるエンドユーザー使用許諾契約書（EULA）。あなたが受け入れない場合
+EULAには、このリリースに含まれるファイルを使用する権利がありません。
+このリリースに関連するすべてのファイルのすべてのコピーを直ちに削除してください。
+
+-------------------------------------------------- ------------------------------
+II.A. Windowsのインストール手順
+-------------------------------------------------- ------------------------------
+
+1. NVIDIA GPU Computing SDKに含まれているOpenCL SDKサンプルには、CUDA ComputeでのGPUが必要です
+   適切に動作するアーキテクチャ。 CUDAアーキテクチャコンピューティング対応GPUの完全なリストについては、
+   オンラインのリストを参照してください：http://www.nvidia.com/object/cuda_learn_products.html
+
+2. NVIDIA GPU Computing SDKのOpenCL SDKサンプルには、NVIDIAのバージョン295.xxまたは300.xxが必要です
+   32ビットまたは64ビットのWindows XP、Windows VistaまたはWindows 7で実行するには、Display Driver以降が必要です。
+   この必須ドライバは、このリンクを介して公に利用可能です。
+
+   http://www.nvidia.com/Download/index.aspx?lang=en-us
+   
+   ドライバインストールのヒントドキュメントを必ずお読みください
+   ドライバをインストールします。http://www.nvidia.com/object/driver_installation_hints.html
+
+       NVIDIAドライバをダウンロードするには、このリンクを参照してください。
+       
+       http://www.nvidia.com/page/pg_20030521269172.html
+   
+3.このSDKには、Microsoft DirectX SDKに依存するOpenCL / DirectX interop SDKサンプルが含まれています。
+   これらのサンプルを作成するには、2010年6月からMicrosoft DirectX SDKをダウンロードするか、
+   このリンクから新しい
+       
+       http://msdn.microsoft.com/en-us/directx/default.aspx
+   
+4.以前のバージョンのNVIDIA GPU Computing SDKをアンインストールします
+
+5.ご使用のOSに付属のインストーラを実行して、NVIDIA GPU Computing SDKをインストールします。
+    
+   OpenCL SDKのデフォルトのインストールフォルダは次のとおりです。
+
+   Windows XP
+       C：\ Documents and Settings \ All Users \ Application Data \ NVIDIA Corporation \ NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL
+
+   Windows Vista
+       C：\ ProgramData \ NVIDIA Corporation \ NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL
+           
+   注意：「アプリケーションデータ」および「ProgramData」フォルダは、「Windowsエクスプローラ」でデフォルトとして非表示になっている可能性があります。
+          多くのWindowsインストールで。必要に応じて、「Windowsエクスプローラ」で表示することができます。
+          これを行うには、Windowsファイルの[ツール]メニューの[フォルダオプション]の設定を変更します
+冒険者。
+      
+6. SDKをインストールしたら、[スタート]メニューから[NVIDIA GPU Computing]をクリックしてSDKブラウザを開きます
+   NVIDIA Corporationプログラムグループ内のNVIDIA GPU Computingフォルダの「SDK Browser」
+   Windowsの[スタート]メニューにインストールされます。
+
+       - インストールされている各SDKサンプルプログラムが、実行可能ファイルを実行するためのリンクとともに表示されます。
+        ソースコードファイルを表示します。
+ 
+       - サンプルのいくつかは、さらに、サンプルを詳細に記述したホワイトペーパーへのリンクを提示します。
+ 
+       - サンプルは、SDKブラウザ内で、複雑さのおおよその順に表示されます
+        複雑なプロジェクトは最上部にあり、最も複雑なプロジェクトは最下部にあります。
+
+7. 32ビットまたは64ビットのビルド（インストールOSと一致）、リリースおよびデバッグ
+   SDKプロジェクトの全セットとユーティリティ依存関係の設定
+   提供されるソリューション：
+
+      Visual Studio 2005（VC8）用の "oclRelease_vs2005.sln"
+Visual Studio 2008（VC9）用の "oclRelease_vs2008.sln"
+Visual Studio 2010（VC10）の "oclRelease_vs2010.sln"
+
+   これらの.slnファイルは、 "\ NVIDIA GPU Computing SDK 4.2 \ OpenCL"ディレクトリにインストールされます
+   SDKのSDKサンプルの実行可能ファイル（* .exe）と関連するファイル（* .lib）と（* .dll）をビルドまたはコピーし、
+   現在のOSで実行バイナリを適切なディレクトリに配置する
+   "\ NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL \ bin \ <platform> \ <configuration>"
+   
+   その後のビルドでは、
+       - 各サンプルのディレクトリにある個々のソリューションファイルを
+        "NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL \ src"、または
+        
+       - "\ NVIDIA GPU Computing SDK 4.2 \ OpenCL"にあるグローバルソリューションファイルを使用します。
+"oclRelease_vs2005.sln"
+"oclRelease_vs2008.sln"
+"oclRelease_vs2010.sln"
+   
+8. NVIDIA GPU Computing SDKのOpenCL部分のビルド構造に関する注意事項：
+
+8. NVIDIA GPU Computing SDKのOpenCL部分のビルド構造に関する注意事項：
+      
+       - "$（PlatformName）"（VS2005 / VS2008）または "$（プラットフォーム）"（VS2010）はVisual Studioで使用されています
+SDKのプロジェクトを使用して、正しいOpenCL.libファイルのバージョン（Win32またはx64）に切り替えます。
+"NVIDIA GPU Computing SDK 4.2 \ OpenCL \ lib"フォルダにあります。これはビルド時に必要なstublibファイルです
+OpenCL dllに暗黙的にリンクするための時間。システムにインストールされている
+適切なNVIDIA GPUドライバ。
+        
+       - ビルド後にポストビルドイベントが実行されます。
+"oclRelease_vs2005.sln"、
+"oclRelease_vs2008.sln"、
+"oclRelease_vs2010.sln"
+そして
+"oclUtils_vs2005.sln"、
+"oclUtils_vs2008.sln"、
+"oclUtils_vs2010.sln"
+
+必要なdllがディレクトリ内にコピーされる
+"NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL \ bin \ <platform> \ <configuration>"
+
+        （上記の6項で説明した* .exeファイルを含む同じディレクトリ）。これは置く
+        DLLは実行時にWindowsによって検索される最初のデフォルトパスの場所にあります。
+
+       - NVIDIA GPU Computing SDKのサンプルは、静的に呼び出されたユーティリティライブラリにリンクされています
+        "shrUtils"はOpenCLとは無関係の一般的なC ++ユーティリティのセットですが、
+        NVIDIA GPU Computing APIのサンプルデモアプリケーションを作成します。
+
+           - 上記の手順6を実行すると、開発者はshrUtilsを気にする必要はありません。この依存関係
+            ステップ6で世話をする。しかし、開発者はshrUtilsのソースコードを
+"\ NVIDIA GPU Computing SDK 4.2 \ shared \"のソリューションファイル：
+
+            "shrUtils_vs2005.sln"
+"shrUtils_vs2008.sln"
+"shrUtils_vs2010.sln"
+        
+           - SDKサンプルのリリース版は、shrUtils [32 | 64] .libにリンクしています。デバッグバージョン
+            これらのサンプルのうち、shrUtils [32D | 64D] .libにリンクしています。
+            
+           - shrUtils_vs2005 / 08 / 10.slnコンパイルの出力はプロジェクト設定で設定され、
+            サブディレクトリ "NVIDIA GPU Computing SDK 4.2 \ shared \ lib"
+            
+           - shrUtilsは、便宜上、このSDKで提供され、使用されています。それは必要ない
+            独立したOpenCLアプリケーション開発。
+
+       - NVIDIA GPU Computing SDKのOpenCLサンプルも、静的にリンクされているユーティリティライブラリにリンクされています
+        OpenCL関連またはOpenCL SDK固有のユーティリティのセットであり、共通でもある "oclUtils"
+        ほとんどの標準システムのヘッダーにはshrUtilsが含まれています。
+        
+           - 上記の手順6を実行すると、開発者はoclUtilsを心配する必要はありません。この依存関係
+            ステップ6で世話をする。しかし、開発者はoclUtilsのソースコードを
+            oclUtilsは "\ NVIDIA GPU Computing SDK 4.2 \ OpenCL \ common"にあります。
+
+"oclUtils_vs2005.sln"
+"oclUtils_vs2008.sln"
+"oclUtils_vs2010.sln"
+
+           - SDKサンプルのリリース版はoclUtils [32 | 64] .libにリンクしています。デバッグバージョン
+            これらのサンプルのうちoclUtils [32D | 64D] .libにリンクします。
+
+           - oclUtilsコンパイルの出力は、プロジェクト設定で設定されます。
+            "NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL \ common \ lib"：
+
+           - oclUtilsは、便宜上、このSDKで提供され、使用されています。それは必要ない
+            独立したOpenCLアプリケーション開発。
+
+9.手順6を実行した後で作成したサンプルアプリケーションを表示するには、リリースからサンプルを実行します
+   または「NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL \ bin \ win [32 | 64] \ [release | debug]」にあるデバッグディレクトリを使用します。
+
+     - すべてのSDKアプリケーションは、コンソールウィンドウから関心のあるメッセージをコンソールウィンドウに出力します。
+      基本的なOpenCLプログラムの流れを理解し、いくつかのアプリケーションが生成する立場
+      グラフィックスは別のOpenGLウィンドウで出力されます。
+      
+     - 多くのSDKアプリケーションでは、
+      プログラムの構造とフローの全体的な見通しとセットアップに必要な時間と
+重要な機能の実行。しかし、SDKのサンプルコードは、
+教育目的のために簡素化されており、最適化されていません。高度な最適化
+技術はこのSDKの範囲を超えています。
+サンプルはベンチマークのような使用を意図したものではありません。
+
+     - すべてのアプリケーションは、すべてのコンソール情報をセッションログファイルに
+      実行可能ファイルと同じディレクトリ。これらのファイルの名前は、サンプルアプリケーションの名前の後ろに明示的に付けられています。
+      拡張子は.txtです。
+
+     - 便宜上、oclSDK.batバッチファイルは、実行可能ディレクトリにa
+ビルドされたソリューションファイルからビルド後のイベント：
+
+"oclRelease_vs2005.sln"
+"oclRelease_vs2008.sln"
+"oclRelease_vs2010.sln"
+
+このバッチファイルを実行すると、各サンプルの完了時に実行が一時停止するだけで、
+上記のように各アプリケーションによって生成されたログファイルは、ユーザーの
+すべてのサンプルが完了した後で（数分）便利です。 oclSDK.batファイルも作成します。
+すべての出力の完全なシーケンスを含む統合ログファイル "oclSDK.txt"
+サンプルはoclSDK.batによって実行されます。
+
+10.シンタックスハイライト
+10。
+
+Visual Studio 2005（VC8）、Visual Stuido 2008（VC9）の構文ハイライトファイル
+    このSDKは「NVIDIA GPU Computing SDK 4.2 \ OpenCL \ doc \ usertype.dat」に付属しています。このファイル
+OpenCL APIデータ型が含まれています。このファイルを適切なディレクトリに追加する（または
+Visual Studioを起動する前に、このファイルの既存のコピーに内容をコピーします）。
+OpenCL固有のデータ型の強調表示を提供します。
+   
+    32ビットWindows上のVS 8とVS 9のusertype.datファイルのデフォルトの場所は次のとおりです
+        C：\ Program Files \ Microsoft Visual Studio 8 \ Common7 \ IDEまたは
+        C：\ Program Files \ Microsoft Visual Studio 9 \ Common7 \ IDE
+
+    64ビットWindows上のVS 8とVS 9用のusertype.datファイルのデフォルトの場所は次のとおりです
+        C：\ Program Files（x86）\ Microsoft Visual Studio 8 \ Common7 \ IDEまたは
+        C：\ Program Files（x86）\ Microsoft Visual Studio 9 \ Common7 \ IDE
+
+    詳細については、NVIDIA OpenCLスタートガイドの第4章を参照してください。
+
+-----------------------------
+-------------------------------------------------- ------------------------------
+II.B. Linuxのインストール手順
+-------------------------------------------------- ------------------------------
+1. NVIDIA GPU Computing SDKのOpenCL SDKサンプルには、CUDA ComputeでGPUが必要です
+     適切に動作するアーキテクチャ。 CUDAアーキテクチャコンピューティング対応GPUの完全なリストについては、
+     オンラインのリストを参照してください：http://www.nvidia.com/object/cuda_learn_products.html
+
+2. NVIDIA GPU Computing SDKのOpenCLアプリケーションには、NVIDIAのバージョン258.19が必要です
+   32ビットまたは64ビットのLinuxで実行するには、Display Driver以降が必要です。この必要なドライバは、
+   登録された開発者はhttps://nvdeveloper.nvidia.com/login.asp?action=login
+   
+   ドライバインストールのヒントドキュメントを必ずお読みください
+   ドライバをインストールします。http://www.nvidia.com/object/driver_installation_hints.html
+
+3.以前のバージョンのNVIDIA GPU Computing SDKをアンインストールします。
+
+4.ご使用のOSに付属のインストーラを実行して、NVIDIA GPU Computing SDKをインストールします。
+             
+   OpenCL SDKのデフォルトのインストールフォルダは次のとおりです。
+
+     Linux
+           $（HOME）/ NVIDIA_GPU_Computing_SDK /
+           
+     以下では、SDKがインストールされているパスを<NV_COMPUTE_SDK_PATH>として参照します。
+     
+5. 32ビットまたは64ビットのビルド（インストールOSと一致）、リリースおよびデバッグ
+   構成、SDKプロジェクトの全セットとユーティリティの依存関係
+   a。 <NV_COMPUTE_SDK_PATH> / OpenCLに移動します。
+   b。ビルド：
+     - "make"とタイプして設定を解除する。
+     - "make dbg = 1"と入力して設定をデバッグします。
+
+   トップレベルでmakeを実行すると、まず共有ライブラリと共通ユーティリティライブラリがビルドされます。
+   SDKサンプル（これらのライブラリは便宜上のものであり、OpenCLの一部ではありません
+   あなた自身のOpenCLプログラムでは必要ありません）。 Makeはそれぞれをビルドします
+   SDKのプロジェクトの
+
+6.次の場所にあるreleaseまたはdebugディレクトリからサンプルを実行します。
+   <NV_COMPUTE_SDK_PATH> / OpenCL / bin / linux / [リリース|デバッグ]。
+
+     - ほとんどのSDKアプリケーションは、コンソールウィンドウから関心のあるメッセージをコンソールウィンドウに出力します。
+      基本的なOpenCLプログラムの流れを理解し、いくつかのアプリケーションが生成する立場
+      グラフィックスは別のOpenGLウィンドウで出力されます。
+      
+     - 多くのSDKアプリケーションでは、
+      プログラムの構造とフローの全体的な視点と、セットアップと実行に必要な時間
+      重要な機能。しかし、SDKのサンプルコードは、一般的に教授のために簡素化されています
+      最適化されていません。高度な最適化手法は、このSDKの対象外です。
+      サンプルによって提示される任意のタイミング情報は、ベンチマークのような使用のためのものではありません。
+
+     - すべてのアプリケーションは、すべてのコンソール情報をセッションログファイルに
+      実行可能ファイルと同じディレクトリ。これらのファイルの名前は、サンプルアプリケーションの名前の後ろに明示的に付けられています。
+      拡張子は.txtです。
+
+     - 便宜上、<NV_COMPUTE_SDK_PATH> / OpenCLのMakefileを使用して、すべてを実行することができます
+      SDKは、「make runall」または「make dbg = 1 runall」と入力して順番にサンプリングします。
+
+-------------------------------
+-------------------------------------------------- ------------------------------
+III.A. SDKインフラストラクチャを使用してWindowsで新しいOpenCLプログラムを作成する
+-------------------------------------------------- ------------------------------
+
+NVIDIA OpenCL SDKインフラストラクチャを使用して新しいOpenCLプログラムを作成するのは簡単です。
+次の手順に従ってください：
+
+1.インストールされているOpenCL SDKプロジェクトフォルダの1つをその全体にコピーします。
+   "\ NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL \ src"に移動し、フォルダの名前を変更します。今あなたは持っている
+   「\ NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL \ src \ <myproject>」のようなフォルダ
+
+2.必要に応じてプロジェクトのファイル名を編集します。
+
+3. * .sln、* .vcproj、およびソースファイルを編集します。すべて検索と置換
+   あなたが選んだ新しいファイル名への古いファイル名の出現。
+
+4.以下を使用して、32ビットおよび/または64ビットのリリースおよびデバッグ構成をビルドします。
+      <myproject> _vs2005.sln
+<myproject> _vs2008.sln
+<myproject> _vs2010.sln
+
+5.リリースまたはデバッグの<myproject> .exeを実行します。
+   "NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL \ bin \ win [32 | 64] \ [release | debug]"
+
+6.必要な計算を実行するようにコードを変更します。 OpenCLを参照してください
+   プログラミングガイド、OpenCL API仕様、およびOpenCLベストプラクティスガイド
+   OpenCLでのプログラミングの詳細については、
+
+--------------------------
+-------------------------------------------------- ------------------------------
+III.B. SDKインフラストラクチャを使用してLinux用に独自のOpenCLプログラムを作成する
+-------------------------------------------------- ------------------------------
+
+NVIDIA OpenCL SDKインフラストラクチャを使用して新しいOpenCLプログラムを作成するのは簡単です。
+次の手順に従ってください：
+
+1.インストールされているOpenCL SDKプロジェクトフォルダの1つをその全体にコピーします。
+   "<NV_COMPUTE_SDK_PATH> / OpenCL / src"と入力し、フォルダの名前を変更します。今あなたは持っている
+   "<NV_COMPUTE_SDK_PATH> / OpenCL / src / myproject"のようなフォルダは、
+
+2.必要に応じてプロジェクトのファイル名を編集します。
+
+3. Makefileを編集します。すべて検索と置換
+   あなたが選んだ新しいファイル名への古いファイル名の出現。
+
+4. 32ビットおよび/または64ビットのリリースおよびデバッグをビルドする
+   "make"または "make dbg = 1"と入力して設定します。
+
+5.リリースまたはデバッグのmyproject実行可能ファイルを実行します。
+   "<NV_COMPUTE_SDK_PATH> / OpenCL / bin / linux / [リリース|デバッグ]"を選択します。
+
+6.必要な計算を実行するようにコードを変更します。 OpenCLを参照してください
+   OpenCLでのプログラミングの詳細については、「プログラミングガイド」および「OpenCL API仕様」を参照してください。
+
+---------------------------------
+-------------------------------------------------- ------------------------------
+IV.A. WindowsでSDKインフラストラクチャの外に新しいOpenCLプログラムを作成する
+-------------------------------------------------- ------------------------------
+
+NVIDIA OpenCL SDKインフラストラクチャを使用せずに新しいOpenCLプログラムを作成するには、
+主要なファイルは、見つけて活用するために重要です。
+
+1. NVIDIAで動作するアプリケーションを構築するために必要な唯一のOpenCL固有のファイル
+   サポートされているOSを搭載したシステム上でCUDAアーキテクチャのコンピューティング対応GPU
+   OpenCLをサポートする推奨NVIDIAディスプレイドライバは次のとおりです。
+
+    - ヘッダー：
+        cl.h
+        cl_platform.h
+        cl_ext.h
+        cl_gl.h
+        cl_gl_ext.h
+        cl_d3d11_ext.h
+        cl_d3d10_ext.h
+        cl_d3d9_ext.h
+        opencl.h
+        
+        これらのファイルは、「NVIDIA GPU Computing SDK 4.2 \ OpenCL \ common \ inc \ CL」にあります。
+
+    - スタブ・リブ
+        OpenCL.lib（Win32およびx64プラットフォーム用の異なるファイル）
+
+        この.libファイルは、OpenCLドライバ/コンパイラへのビルド時の暗黙的なリンク用です。
+        OpenCL.dllであり、それらは次の場所にあります。
+        
+        "NVIDIA GPUコンピューティングSDK 4.2 \ OpenCL \ common \ lib \ [Win32 | x64]
+            
+        注：これらのlibファイルは、実行時に明示的なDLLリンケージを実装するアプリケーションには必要ありません。
+
+-------------------------------------------------- ------------------------------
+IV.B. Linux用の独自のOpenCLプログラムをSDKインフラストラクチャの外に作成する
+-------------------------------------------------- ------------------------------
+
+NVIDIA OpenCL SDKインフラストラクチャを使用せずに新しいOpenCLプログラムを作成するには、
+主要なファイルは、見つけて活用するために重要です。
+
+1. NVIDIAで動作するアプリケーションを構築するために必要なOpenCL固有のファイル
+   サポートされているOSを搭載したシステム上でCUDAアーキテクチャのコンピューティング対応GPU
+   OpenCLをサポートする推奨NVIDIAディスプレイドライバは次のとおりです。
+
+    - ヘッダー：
+        cl.h
+        cl_platform.h
+        cl_ext.h
+        cl_gl.h
+        cl_gl_ext.h
+        opencl.h
+
+        これらのファイルは、「NVIDIA GPU Computing SDK 4.2 \ OpenCL \ common \ inc \ CL」にあります。
+    
+---------------------
+-------------------------------------------------- ------------------------------
+V.（a）Mac OSXの既知の問題
+-------------------------------------------------- ------------------------------
+1. Mac OSX SnowLeopard（10.6）では、次の3つのSDKサンプルはOpenCL SDKパッケージに含まれていません。
+   これらのサンプルは現在、OSX SnowLeopardで動作していません。これらの問題を解決するために取り組んでいます。
+ 
+    - oclFDTD3D
+    - oclQuasirandomGenerator
+    - oclSimpleConvolution
+      
+2.このアップデートされたSDK（OpenCL 1.0リリース）のリリース日現在、OpenCLサポートとの不一致
+   Mac OSX上でビルドや実行の失敗が発生する可能性があります。付属のSDKおよびOpenCLバイナリ
+   258.19ドライバーは、2010年6月10日に公開されたKhronosの最新ヘッダーを使用しています。
+   更新されたNVIDIA拡張ヘッダー。しかし、Mac OSX上のOpenCLサポートのシンボルは、
+   OpenCL.framework、およびMac OSXで現在サポートされているOpenCLのリビジョンのヘッダファイルは
+   Apple、Inc.から配布されています。OpenCLのMac OSXサポートに関する情報は、
+         
+http://developer.apple.com/mac/library/documentation/Performance/Conceptual/OpenCL_MacProgGuide/Introduction/Introduction.html
+
+-------------------------------------------------- ------------------------------
+V.（b）Linuxでの既知の問題
+-------------------------------------------------- ------------------------------
+-------------------------------------------------- ------------------------------
+V.（b）Linuxでの既知の問題
+-------------------------------------------------- ------------------------------
+
+1. OpenGLを使用するSDKサンプルはビルドやリンクに失敗します。これは、デフォルトの多く
+       多くのLinuxディストリビューションのインストールには、必要なOpenGL、GLUT、GLU、GLEW、
+X11、Xi、Xlib、またはXmiヘッダーまたはライブラリ。一般的で具体的な解決策は次のとおりです。
+
+       （a）Redhat 4 Linuxディストリビューション
+"ld：-lglutを見つけることができません"。いくつかのLinuxインストールで、oclSimpleGLの例をビルドする
+以下のようなリンクエラーが表示されます。
+
+/ usr / bin / ld：-lglutが見つかりません
+
+通常、これは、SDKのmakefileがlibglut.soを検索し、
+それの亜種（libglut.so.3のようなもの）。これが問題であることを確認するには、単純に
+次のコマンドを実行します。
+
+ls / usr / lib |グレープグート
+
+ls / usr / lib64 |グレープグート
+
+次の（または類似の）出力が表示されます。
+
+lrwxrwxrwx 1ルートルート16 Jan 9 14:06 libglut.so.3 - > libglut.so.3.8.0
+-rwxr-xr-x 1ルートルート164584 2004/08/14 libglut.so.3.8.0
+
+/ usr / libおよび/または/ usr / lib64にlibglut.so.3がある場合は、単に次のコマンドを実行してください
+ルートとして
+
+ln -s /usr/lib/libglut.so.3 /usr/lib/libglut.so
+ln -s /usr/lib64/libglut.so.3 /usr/lib64/libglut.so
+
+libglut.so.3を持っていない場合は、glutパッケージ
+RHELシステムに次のコマンドでインストールします。
+
+rpm -qa |グレープグート
+
+あなたは "freeglut-2.2.2-14"または同様の出力を見るべきです。そうでない場合、あなたは
+システム管理者が "freeglut-2.2.2-14"パッケージをインストールする必要があります。
+手順については、Red Hatおよび/またはrpmのマニュアルを参照してください。
+
+libglut.so.3を持っていても、/ usr / libへの書き込みアクセス権がない場合は、
+この問題を解決するには、ディレクトリにソフトリンクを作成します。
+書き込み権限があり、そのディレクトリをライブラリに追加します
+検索パス（-L）はMakefileにあります。
+        
+（b）Linuxディストリビューション（RedhatやFedoraなど）にはGLUライブラリが含まれていないものがあります。
+最新のパッケージは、このWebサイトからダウンロードできます。お願いします
+正しいLinuxディストリビューションに一致することを確認してください。
+
+http：//fr.rpmfind.net/linux/rpm2html/search.php？query = libGLU.so.1＆submit = Search + ...
+
+        （c）（SLED11）SUSE Linux Enterprise Edition 11がありません：
+"libGLU"、 "libX11"、 "libXi"、 "libXm"
+
+この特定のバージョンのSUSE Linux 11には、次のライブラリのシンボリックリンクがありません。
+
+私。 libGLU
+
+ls / usr / lib | grep GLU
+ls / usr / lib64 | grep GLU
+
+libGLU.so.1
+libGLU.so.1.3.0370300
+
+適切なシンボリックリンク（32ビットおよび64ビットOS）を作成するには、
+
+ln -s /usr/lib/libGLU.so.1 /usr/lib/libGLU.so
+ln -s /usr/lib64/libGLU.so.1 /usr/lib64/libGLU.so
+
+ii。 libX11
+
+ls / usr / lib | grep X11
+ls / usr / lib64 | grep X11
+ 
+libX11.so.6
+libX11.so.6.2.0
+
+適切なシンボリックリンク（32ビットおよび64ビットOS）を作成するには、
+
+ln -s /usr/lib/libX11.so.6 /usr/lib/libX11.so
+ln -s /usr/lib64/libX11.so.6 /usr/lib64/libX11.so
+
+iii。 libXi
+
+ls / usr / lib | grep Xi
+ls / usr / lib64 | grep Xi
+
+libXi.so.6
+libXi.so.6.0.0
+
+適切なシンボリックリンク（32ビットおよび64ビットOS）を作成するには、
+
+ln -s /usr/lib/libXi.so.6 /usr/lib/libXi.so
+ln -s /usr/lib64/libXi.so.6 /usr/lib64/libXi.so
+
+iv。 libXm
+
+ls / usr / lib | grep Xm
+ls / usr / lib64 | grep Xm
+
+libXm.so.6
+libXm.so.6.0.0
+
+適切なシンボリックリンク（32ビットおよび64ビットOS）を作成するには、
+
+ln -s /usr/lib/libXm.so.6 /usr/lib/libXm.so
+ln -s /usr/lib64/libXm.so.6 /usr/lib64/libXm.so
+
+
+（d）Ubuntu LinuxがOpenGLを使用するこれらのSDKサンプルをビルドできない
+
+デフォルトのUbuntuディストリビューションに多数のライブラリがありません
+
+私。欠けているのは、GLUT、Xi、Xmu、GL、およびX11ヘッダーです。これらのヘッダーを追加するには
+ライブラリを配布するには、コマンドラインで次のように入力します。
+ 
+sudo apt-get install freeglut3-devビルドに不可欠なlibx11-dev libxmu-dev libxi-dev libgl1-mesa-glx libglu1-mesa libglu1-mesa-dev
+
+            ii。 Mesaをインストールすると、libGLに対するリンクエラーが表示されることに注意してください。これは以下のように解決できます：
+
+            cd / usr / lib /
+            sudo rm libGL.so
+            sudo ln -s libGL.so.1 libGL.so
+
+
+-----------------------------------
+-------------------------------------------------- ------------------------------
+VI。 よくある質問
+-------------------------------------------------- ------------------------------
+
+NDAやその他の早期アクセスプログラムに参加している開発者は、
+質問、コメントなどをopencl@nvidia.comに送ってください。
+第三者との経験
+
+公式OpenCL FAQは、NVIDIA OpenCLフォーラムでオンラインで入手できます：
+
+     http://forums.nvidia.com/index.php?showforum=134
+
+-------------------------------------------------- ------------------------------
+VII。 変更ログ（最初にリストされた最新の変更）
+-------------------------------------------------- ------------------------------
+-------------------------------------------------- ------------------------------
+VII。変更ログ（最初にリストされた最新の変更）
+-------------------------------------------------- ------------------------------
+OpenCL R295およびR300が更新されました
+Kepler GPUアーキテクチャのドライバサポート。
+
+OpenCL R285 RC1アップデート
+* oclMultiThreads - 新しいイベントとコールバック関数を使用する方法を示すOpenCL SDKのサンプルを追加しました。
+  デフォルトでは、oclRelease_vs2005.slnにはoclMultiThreadsのソリューションファイルが含まれていないことに注意してください。
+  VS2005でこのsampkeをビルドするには、Microsoft SDK v6.0以降をインストールする必要があります。 VS2008およびVS2010
+  プロジェクトはこのサンプルに含まれています。
+
+OpenCL R280アップデート
+* OpenCL 1.1のサポートを追加
+
+OpenCL R270アップデート
+* OpenCL SDKサンプルのVS2010プロジェクトサポートが追加され、SDKサンプルがVisual Studio 2010でビルドされるようになりました
+*追加されたSDKサンプル：oclInlinePTX - OpenCLカーネル内にPTXを埋め込む方法を示す
+* VS2005、VS2008、VS2010のOpenCL個別SDKサンプルソリューションファイル（* .sln）が更新されました。
+  個々のソリューションには、SDKヘルパーライブラリによるプロジェクトの依存関係が含まれています。 SDKサンプル
+  shrUtilsやoclUtilsとのリンクに依存するため、個々のOpenCL SDKサンプルをビルドできるようになりました
+  その依存関係を構築するためにoclRelease_vs20 ??。slnを使用することはありません。
+
+OpenCL R260リリース
+* SDKサンプルの追加：oclMarchingCubes
+
+OpenCL R260ベータリリース候補
+*追加されたSDKサンプル：oclTridiagonal
+
+OpenCL 1.0リリース
+* SDKサンプルを追加：oclSimpleD3D9Texture、oclSimpleD3D10Texture
+* 258.19ドライバの修正により、oclCopyComputeOverlapの回避策が削除されました。
+*その他のクリーンアップ、バグ修正と改善
+
+OpenCL R256 Beta
+* SDKサンプルを追加：oclHiddenMarkovModel、oclSimpleD3D9Texture、oclSimpleD3D10Texture
+*マイナークリーンアップと改善
+
+OpenCL R195リリース
+* KhronosのすべてのOpenCLヘッダが更新されました
+* NVIDIA OpenCL拡張ヘッダーが更新され、4つが新たに追加されました
+（cl_gl_ext.h、cl_d3d11_ext.h、cl_d3d10_ext.h、cl_d3d9_ext.h）
+* ICD、CL-GL interopおよびCL-D3D interopのサポート
+http://www.khronos.org/registry/cl/
+* OpenGLとOpenCLの両方を使用している一部のSDKサンプルは、新しいCL-GL interopを使用するように更新されました
+* oclCopyComputeOverlapを追加しました
+   - OpenCLでコピーとカーネルの実行を処理する方法を示す
+*バグの修正と改善
+*更新されたドキュメント
+
+OpenCL R195アップデートリリース
+*更新された/改善されたドライバと組み合わせたその他のSDKソースコードの改良
+* Khronos OpenCL仕様とクイックリファレンスカードを最新版にアップデート
+* clext.hファイル名がcl_ext.hに変更されました。
+* cl_ext.h内の拡張の列挙名が更新されました
+* OpenCL.libは、OpenCL.dll（ドライバーで別途に配布）の変更を__cdeclから__stdcallに変更するために更新されました
+*以前のNVIDIA OpenCLドライバは、開発者がNULLまたはデフォルトのプラットフォーム、
+  clCreateContextと関連するコールに渡されるように、NVIDIAのプラットフォームでした。このアプローチは互換性がありません
+  単一のプラットフォーム上で複数のベンダーをサポートしています（どのベンダーがデフォルトであるかは不明です）。
+  将来のマルチベンダーOpenCLインストールとの互換性を準備するために、NVIDIAのドライバはもはや
+  プラットフォームとしてNULLを守ります。これには、OpenCLプログラムを明示的に変更する必要があります。
+  適切なベンダーを選択してください。この変更はサンプルコードに反映されています
+  このSDKリリースでは
+
+OpenCL R190アップデートリリース
+* OpenCLコンパイラ/ドライバをSDKからr190 GPUドライバに移行
+* OpenCLコンパイラ/ドライバには、さまざまな修正、拡張機能、およびパフォーマンスの改善が含まれています。
+*更新されたOpenCLヘッダーとライブラリ
+*必須/付属のr190ドライバはCUDA 2.3と互換性があります
+*追加：Windows 7（32ビットおよび64ビット）のサポート
+Win32ターゲット用の32ビットWindows SDKパッケージを統一しました。 （32ビットWindows XP、Vista、Win7）= 1 SDKインストーラパッケージ
+* x64ターゲット用の64ビットWindows SDKパッケージを統一しました。 （64ビットWindows XP、Vista、Win7）= 1 SDKインストーラパッケージ
+*クロスコンパイル（32/64および64/32）は、OpenCLサンプルプロジェクトで動作するようになりました。
+* SDKバージョン4788711
+  いくつかのサンプルでのマルチGPUサポートを含むSDKサンプルコードの多数のリビジョン
+  追加されたサンプル：oclMedianFilter、oclFDTD3d、oclRadixSort、
+                  oclMersenneTwister、oclSemirandomGenerator、
+                  oclMatVecMul、oclHiddenMarkovModel
+* SDKサンプルはMac OSX SnowLeopardをサポートしていますが、いくつかは除外されています。 「既知の問題」を参照してください。
+* OpenCLベストプラクティスガイドの追加
+* OpenCLプログラミングの概要の追加
+* WindowsおよびLinux用統合リリースノート1セット
+*その他のドキュメントの更新
+
+OpenCL 1.0準拠リリース
+* SDKコンテンツのマイナーリビジョンとoclSobelFilterサンプルの追加、SDK 1.00.00.07
+* OpenCL適合
+
+OpenCL 1.0 Beta 1.2
+* SDKコンテンツのマイナーリビジョン、SDK 1.00.00.06
+* Khronosから新しいOpenCL仕様（v1.00.43）をバンドル
+
+OpenCL 1.0 Beta 1.1
+* Vista32およびVista64 OpenCLプレリリースバイナリを他のプラットフォームと同等のバージョンに改訂
+*更新されたVista 32および64を反映したSDKコンテンツのマイナーリビジョン
+OpenCL 1.0 Beta 1.1
+* Vista32およびVista64 OpenCLプレリリースバイナリを他のプラットフォームと同等のバージョンに改訂
+*更新されたVista 32および64 OpenCLバイナリ、SDK 1.00.00.05を反映したSDKコンテンツのマイナーリビジョン
+
+OpenCL 1.0 Beta 1
+* WinXP 32、WinXP64、Linux 32＆64（カーネルバージョン2.6）、WinVista 32、WinVista 64をサポート
+*パブリックWHQLドライバ185.85（Win）と185.18.08（Linux）にGPUディスプレイドライバを更新
+  （GPUドライバは現在、CUDA 2.2およびOpenCLと互換性があります）
+WinXP 32＆64およびLinux 32＆64の以前の既知の問題の解消
+*その他その他のアップデートと改善、SDK 1.00.00.04
+
+OpenCL 1.0準拠候補リリース
+* WinXP 32およびLinux 32（Kernel Version 2.6）がサポートされています。
+*パブリックWHQLドライバ185.85（Win）と185.18.08（Linux）にGPUディスプレイドライバを更新
+  （GPUドライバは現在、CUDA 2.2およびOpenCLと互換性があります）
+WinXP 32およびLinux 32の以前の既知の問題の削除
+*その他その他の更新と改善
+
+リリース1.0のAlpha 2.1
+* 64ビットWinXP、WinVista、Linux（Ubuntu 8.1）のサポートを追加。
+*その他更新と改善
+
+リリース1.0 Alpha 2 Windows Driver Refresh
+*新しいWindows GPUドライバのアップデート、その他の修正、追加、解説
+
+リリース1.0のアルファ2
+*最初の開発者 - パートナーNDAリリース
+
+-------------------------------------------------- ------------------------------
+VIII。 OSプラットフォームとコンパイラのサポート
+-------------------------------------------------- ------------------------------
+
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 NVIDIA GPU Computing Software Development Kit
